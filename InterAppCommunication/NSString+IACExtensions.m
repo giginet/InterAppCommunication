@@ -24,7 +24,6 @@
     return uuidStr;
 }
 
-
 - (NSDictionary *)parseURLParams {
     NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
     
@@ -33,7 +32,7 @@
     [pairs enumerateObjectsUsingBlock:^(NSString *pair, NSUInteger idx, BOOL *stop) {
         NSArray *comps = [pair componentsSeparatedByString:@"="];
         if ([comps count] == 2) {
-            [result setObject:[comps[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:comps[0]];
+            [result setObject:[comps[1] stringByRemovingPercentEncoding] forKey:comps[0]];
         }
     }];
     
@@ -55,12 +54,7 @@
     [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         NSString *escapedObj = obj;
         if ([obj isKindOfClass:[NSString class]]) {
-            escapedObj = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
-                                                                                               NULL,
-                                                                                               (__bridge CFStringRef) obj,
-                                                                                               NULL,
-                                                                                               CFSTR("!*'();:@&=+$,/?%#[]"),
-                                                                                               kCFStringEncodingUTF8));
+            escapedObj = [obj stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]];
         }
         [result appendFormat:@"%@=%@&", key, escapedObj];
     }];

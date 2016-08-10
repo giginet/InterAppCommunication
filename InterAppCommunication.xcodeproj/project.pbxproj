@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		543B1F001CC5D8D10004F3F7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 543B1EFF1CC5D8D10004F3F7 /* Info.plist */; };
 		543B1F011CC5F8F90004F3F7 /* IACClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 543B1EE61CC5D8590004F3F7 /* IACClient.m */; };
 		543B1F021CC5F8FC0004F3F7 /* IACManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 543B1EE91CC5D8590004F3F7 /* IACManager.m */; };
 		543B1F031CC5F8FE0004F3F7 /* IACRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 543B1EEB1CC5D8590004F3F7 /* IACRequest.m */; };
@@ -177,7 +176,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				543B1F001CC5D8D10004F3F7 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
