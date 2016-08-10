@@ -22,15 +22,13 @@
     return [[self alloc] init];
 }
 
-+ (instancetype)clientWithURLScheme:(NSString*)scheme {
++ (instancetype)clientWithURLScheme:(NSString *)scheme {
     return [[self alloc] initWithURLScheme:scheme];
 }
 
-- (instancetype)initWithURLScheme:(NSString*)scheme {
+- (instancetype)initWithURLScheme:(NSString *)scheme {
     self = [super init];
-    if (self) {
-        self.URLScheme = scheme;
-    }
+    _URLScheme = scheme;
     return self;
 }
 
@@ -42,17 +40,20 @@
     return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://Test", self.URLScheme]]];
 }
 
-- (void)performAction:(NSString*)action {
+- (void)performAction:(NSString *)action {
     [self performAction:action parameters:nil];
 }
 
-- (void)performAction:(NSString*)action parameters:(NSDictionary*)params {
+- (void)performAction:(NSString *)action 
+           parameters:(NSDictionary *)params {
     [self performAction:action parameters:params onSuccess:nil onFailure:nil];
 }
 
 
-- (void)performAction:(NSString*)action parameters:(NSDictionary*)params onSuccess:(void(^)(NSDictionary*result))success onFailure:(void(^)(NSError*))failure {
-    
+- (void)performAction:(NSString *)action 
+           parameters:(NSDictionary *)params 
+            onSuccess:(void(^)(NSDictionary *result))success 
+            onFailure:(void(^)(NSError *))failure {
     IACRequest *request = [[IACRequest alloc] init];
     request.client = self;
     request.action = action;
