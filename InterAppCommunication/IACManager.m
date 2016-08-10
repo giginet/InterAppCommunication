@@ -11,7 +11,7 @@
 #import "IACClient.h"
 #import "IACRequest.h"
 #import "NSString+IACExtensions.h"
-
+#import <UIKit/UIKit.h>
 
 #if !__has_feature(objc_arc)
 #error InterAppComutication must be built with ARC.
