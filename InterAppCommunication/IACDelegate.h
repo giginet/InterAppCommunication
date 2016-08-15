@@ -8,25 +8,28 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 // Block templates
-typedef void(^IACSuccessBlock)(NSDictionary* returnParams,BOOL cancelled);
-typedef void(^IACFailureBlock)(NSError* error);
+typedef void(^IACSuccessBlock)(NSDictionary *returnParams, BOOL cancelled);
+typedef void(^IACFailureBlock)(NSError *error);
 
 
 @protocol IACDelegate <NSObject>
 
 /* Method invoqued to see if an action is handled by the delegate
 */
-- (BOOL)supportsIACAction:(NSString*)action;
+- (BOOL)supportsIACAction:(NSString *)action;
 
 /* Method invoqued by the manager to perform an action.
    The parameters dictionary does not contain any x-callback-url parameter except 'x-source'.
    success and failure are the blocks you must call after you perform the action to support callbacks to the calling app. If the action does not support callbacks you can ignore this blocks.
 */
-- (void)performIACAction:(NSString*)action
-              parameters:(NSDictionary*)parameters
-               onSuccess:(IACSuccessBlock)success
-               onFailure:(IACFailureBlock)failure;
+- (void)performIACAction:(NSString *)action
+              parameters:(nullable NSDictionary *)parameters
+               onSuccess:(nullable IACSuccessBlock)success
+               onFailure:(nullable IACFailureBlock)failure;
 
 @end
+
+NS_ASSUME_NONNULL_END

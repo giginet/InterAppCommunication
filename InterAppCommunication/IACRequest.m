@@ -23,9 +23,7 @@
 
 - (instancetype)init {
     self = [super init];
-    if (self) {
-        self.requestID = [NSString stringWithUUID];
-    }
+    _requestID = [NSString stringWithUUID];
     return self;
 }
 

@@ -11,7 +11,7 @@
 #import "IACClient.h"
 #import "IACRequest.h"
 #import "NSString+IACExtensions.h"
-
+#import <UIKit/UIKit.h>
 
 #if !__has_feature(objc_arc)
 #error InterAppComutication must be built with ARC.
@@ -70,7 +70,7 @@ typedef NS_ENUM(NSUInteger, IACResponseType) {
     return self;
 }
 
-- (BOOL)handleOpenURL:(NSURL*)url {
+- (BOOL)handleOpenURL:(NSURL *)url {
     // An app can respond to multiple url schemes and the app can use different IACManagers for each one
     // so we test if the url is handled by this manager
     if (![url.scheme isEqualToString:self.callbackURLScheme]) {
@@ -183,7 +183,7 @@ typedef NS_ENUM(NSUInteger, IACResponseType) {
     return NO;
 }
 
-- (void)sendIACRequest:(IACRequest*)request {
+- (void)sendIACRequest:(IACRequest *)request {
     
     if (![request.client isAppInstalled]) {
         if (request.errorCalback) {
@@ -225,12 +225,12 @@ typedef NS_ENUM(NSUInteger, IACResponseType) {
 }
 
 
-- (void)handleAction:(NSString*)action withBlock:(IACActionHandlerBlock)handler {
+- (void)handleAction:(NSString *)action withBlock:(IACActionHandlerBlock)handler {
     actions[action] = [handler copy];
 }
 
 
-- (NSDictionary*)removeProtocolParamsFromDictionary:(NSDictionary*)dictionary {
+- (NSDictionary*)removeProtocolParamsFromDictionary:(NSDictionary *)dictionary {
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
     
     // Removes all x-callback-url and all IAC parameters
@@ -248,7 +248,7 @@ typedef NS_ENUM(NSUInteger, IACResponseType) {
     return result;
 }
 
-- (NSString*)localizedAppName {
+- (NSString *)localizedAppName {
     NSString *appname = [[NSBundle mainBundle] localizedInfoDictionary][@"CFBundleDisplayName"];
     if (!appname) {
         appname = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];

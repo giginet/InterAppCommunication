@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSString (IACExtensions)
 
-+ (NSString*)stringWithUUID;
++ (NSString *)stringWithUUID;
 
-- (NSString*)stringByAppendingURLParams:(NSDictionary*)params;
+- (NSString *)stringByAppendingURLParams:(NSDictionary *)params;
 
-- (NSDictionary*)parseURLParams;
+- (NSDictionary *)parseURLParams;
 
 @end
+
+NS_ASSUME_NONNULL_END

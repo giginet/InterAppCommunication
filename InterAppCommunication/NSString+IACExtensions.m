@@ -16,7 +16,7 @@
 
 @implementation NSString (IACExtensions)
 
-+ (NSString*)stringWithUUID {
++ (NSString *)stringWithUUID {
     CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
     NSString *uuidStr = (__bridge_transfer NSString *)CFUUIDCreateString(kCFAllocatorDefault, uuid);
     CFRelease(uuid);
@@ -24,8 +24,7 @@
     return uuidStr;
 }
 
-
-- (NSDictionary*)parseURLParams {
+- (NSDictionary *)parseURLParams {
     NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
     
     NSArray *pairs = [self componentsSeparatedByString:@"&"];
@@ -33,14 +32,14 @@
     [pairs enumerateObjectsUsingBlock:^(NSString *pair, NSUInteger idx, BOOL *stop) {
         NSArray *comps = [pair componentsSeparatedByString:@"="];
         if ([comps count] == 2) {
-            [result setObject:[comps[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:comps[0]];
+            [result setObject:[comps[1] stringByRemovingPercentEncoding] forKey:comps[0]];
         }
     }];
     
     return result;
 }
 
-- (NSString*)stringByAppendingURLParams:(NSDictionary*)params {
+- (NSString *)stringByAppendingURLParams:(NSDictionary *)params {
     NSMutableString *result = [[NSMutableString alloc] init];
     
     [result appendString:self];
@@ -55,12 +54,7 @@
     [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         NSString *escapedObj = obj;
         if ([obj isKindOfClass:[NSString class]]) {
-            escapedObj = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
-                                                                                               NULL,
-                                                                                               (__bridge CFStringRef) obj,
-                                                                                               NULL,
-                                                                                               CFSTR("!*'();:@&=+$,/?%#[]"),
-                                                                                               kCFStringEncodingUTF8));
+            escapedObj = [obj stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]];
         }
         [result appendFormat:@"%@=%@&", key, escapedObj];
     }];
